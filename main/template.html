@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{.Config.Subject}}</title>
+</head>
+<body>
+<h1>{{.Config.Subject}}</h1>
+<p>时间：{{.MonitorTime}}</p>
+<p>{{.Config.Remark}}</p>
+<p>文件名：{{.FileName}}</p>
+<p>文件进度：{{.LastFileSize}}</p>
+<br/>
+<br/>
+<br/>
+<p>内容：</p>
+<pre>
+{{.IncrementalTxt}}
+</pre>	
+
+<p>
+文件变化监控组件，版本：0.1,有任何技术问题请联系：郭红俊&lt;ghj1976@hotmail.com&gt;
+</p>
+
+</body>
+</html>
