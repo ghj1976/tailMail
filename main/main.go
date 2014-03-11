@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"github.com/ghj1976/tailMail"
 	"log"
 	"path"
 	"strings"
-	"tailMail"
 	"time"
 )
 
