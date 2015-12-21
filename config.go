@@ -59,10 +59,19 @@ func ReadProgress() (progressArr TailProgressCollectionEntity, err error) {
 	}
 	//fmt.Printf("%s\n", string(txt))
 	json.Unmarshal(txt, &progressArr)
+
+	// 如果文件读取出错，不能用 nil 指针。
+	if progressArr.ProgressMap == nil {
+		err = nil
+		progressArr = TailProgressCollectionEntity{
+			ProgressMap: map[string]int64{},
+		}
+
+	}
 	return
 }
 
-// 写进度文件
+// 更新写进度文件
 func WriteProgress(progressArr *TailProgressCollectionEntity) (err error) {
 	txt, err := json.Marshal(progressArr)
 	if err != nil {

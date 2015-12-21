@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"github.com/ghj1976/tailMail"
 	"log"
+	"net/mail"
+	"os"
 	"path"
 	"strings"
 	"time"
@@ -18,7 +20,8 @@ var (
 )
 
 func main() {
-
+	// 打印当前时间
+	log.Println("##begin##")
 	// 读取命令参数
 	flag.Parse()
 	//fmt.Println(flag.Args())
@@ -35,25 +38,32 @@ func main() {
 		configDir = path.Clean(configDir)
 	}
 
+	// 准备日志输出。
 	tailMail.InitLogFile(configDir)
 	defer tailMail.LoggerFinish()
 
+	// 加载配置文件
 	tailMail.InitConfigFile(configDir)
 
+	// 命令行参数时重建配置文件
 	if *initConfig {
 		initConfigFile()
+		os.Exit(-1)
+		return
 		// saveProgressInfoInit()
-
-	} else {
-		work(configDir)
 	}
 
+	// 开始循环分析文件
+	work(configDir)
+
+	// 打印结束时间
+	log.Println("==end==")
 }
 
 func work(configDir string) {
 
 	log.Println("")
-	log.Println(".... 开始执行 ....")
+	log.Println(".... 开始 ....")
 
 	log.Println("读取配置信息中...")
 	// 读取配置文件
@@ -71,6 +81,7 @@ func work(configDir string) {
 	// 组装需要发送的信息数组
 	var tailInfoMap map[string]tailMail.TailInfoEntity
 	tailInfoMap = make(map[string]tailMail.TailInfoEntity, len(configArr.ConfigArr))
+
 	for _, conf := range configArr.ConfigArr {
 
 		fn := conf.FileName
@@ -130,7 +141,9 @@ func tailFileMail(tailInfo *tailMail.TailInfoEntity, configDir string) {
 		log.Println("开始发送邮件！", tailInfo.Config.ToMailArr)
 
 		// 发送邮件
-		tailMail.SendHtmlMail(tailInfo.MailServer, tailInfo.Config.Subject, tailInfo.MailBodyHtml.String(), tailInfo.Config.ToMailArr)
+		//tailMail.SendHtmlMail(tailInfo.MailServer, tailInfo.Config.Subject, tailInfo.MailBodyHtml.String(), tailInfo.Config.ToMailArr)
+
+		tailMail.SendSSLMail(tailInfo.MailServer, tailInfo.Config.Subject, tailInfo.MailBodyHtml.String(), "", tailInfo.Config.ToMailArr)
 		log.Println("..邮件发送完成！...")
 
 	} else {
@@ -143,30 +156,30 @@ func tailFileMail(tailInfo *tailMail.TailInfoEntity, configDir string) {
 func initConfigFile() {
 
 	// 需要监控的文件
-	fileName1 := "E:\\tmp\\dnsdata\\auth.acc-2014-01-18-64.35.log"
-	fileName2 := "E:\\tmp\\dnsdata\\138.18.stdout-2014_01_22.log"
+	fileName1 := "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/11.log"
+	fileName2 := "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22.log"
 
 	// 写配置信息
 	configArr := tailMail.TailConfigCollectionEntity{
 		MailServer: tailMail.SmtpMailServerEntity{
-			ServerAddress:     "smtp.163.com",
-			ServerAddressPort: 25,
+			ServerAddress:     "smtp.exmail.qq.com",
+			ServerAddressPort: 465,
 			NeedLogin:         true,
-			LoginUser:         "ghj197605@163.com",
-			LoginPassword:     "******",
-			SendMailUserMail:  "ghj197605@163.com",
+			LoginUser:         "guohongjun@bbb.com",
+			LoginPassword:     "*******",
+			SendMailUserMail:  mail.Address{Name: "郭红俊", Address: "guohongjun@bbb.com"},
 		},
 		ConfigArr: []tailMail.TailConfigEntity{
 			{
 				FileName:  fileName1,
 				Subject:   "异常监控报告，服务器：61.235",
 				Remark:    "",
-				ToMailArr: []string{"aaa@hotmail.com", "bbb@163.com"}},
+				ToMailArr: []mail.Address{{Name: "ghj1976", Address: "ghj1976@aaa.com"}, {Name: "郭红俊", Address: "guohongjun@bbb.com"}}},
 			{
 				FileName:  fileName2,
-				Subject:   "测试邮件标题，郭红俊",
+				Subject:   "测试邮件标题",
 				Remark:    "",
-				ToMailArr: []string{"ghj197605@163.com"}}}}
+				ToMailArr: []mail.Address{{Name: "ghj1976", Address: "ghj1976@aaa.com"}}}}}
 
 	err := tailMail.WriteConfig(&configArr)
 	if err != nil {
@@ -177,7 +190,7 @@ func initConfigFile() {
 
 }
 
-// 进度文件初始化测试
+// 进度文件初始化测试，目前没有意义了。
 func saveProgressInfoInit() {
 
 	progressArr := tailMail.TailProgressCollectionEntity{

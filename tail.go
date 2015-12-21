@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+const (
+	MAXTXTLEN = 10000 // 最长的文本长度，为了避免发太大的邮件，最多只会发这么多字符的内容。
+)
+
 func Tail(fileName string, buffer *bytes.Buffer, oldFileSize int64) (hasNewInfo bool, newFileSize int64, err error) {
 	hasNewInfo = false
 	newFileSize = oldFileSize
@@ -34,9 +38,9 @@ func Tail(fileName string, buffer *bytes.Buffer, oldFileSize int64) (hasNewInfo 
 		hasNewInfo = true
 
 		// 避免去太长的文本
-		if tailLen > 10000 || tailLen < 0 {
+		if tailLen > MAXTXTLEN || tailLen < 0 {
 			// 太长，截断之， 文件被删除内容，意味着需要重新读取，读取最后的 10000 字符
-			tailLen = 10000
+			tailLen = MAXTXTLEN
 		}
 
 		tailLen = tailLen + 100 // 从文件最后往前读的位移量
