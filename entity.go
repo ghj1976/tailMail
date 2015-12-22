@@ -11,10 +11,11 @@ import (
 
 // 文件监控配置文件中每一个监控项的配置
 type TailConfigEntity struct {
-	FileName  string         // 文件名
-	Subject   string         // 发送邮件的主题
-	Remark    string         // 备注，用于区分发送的内容
-	ToMailArr []mail.Address // 需要发送的邮件地址
+	FileName            string         // 文件名
+	FileNameUseTemplate bool           // 文件名是否使用模版 郭红俊 20151222 增加新功能
+	Subject             string         // 发送邮件的主题
+	Remark              string         // 备注，用于区分发送的内容
+	ToMailArr           []mail.Address // 需要发送的邮件地址
 
 }
 

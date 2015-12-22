@@ -1,33 +1,35 @@
 {
-    "MailServer": {
-        "ServerAddress": "smtp.exmail.qq.com",
-        "ServerAddressPort": 465,
-        "NeedLogin": true,
-        "LoginUser": "guohongjun@bbb.com",
-        "LoginPassword": "*******",
-        "SendMailUserMail": {
-            "Name": "郭红俊",
-            "Address": "guohongjun@bbb.com"
-        }
-    },
-    "ConfigArr": [{
-        "FileName": "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/11.log",
-        "Subject": "异常监控报告，服务器：61.235",
-        "Remark": "",
-        "ToMailArr": [{
-            "Name": "ghj1976",
-            "Address": "ghj1976@aaa.com"
-        }, {
-            "Name": "郭红俊",
-            "Address": "guohongjun@bbb.com"
-        }]
-    }, {
-        "FileName": "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22.log",
-        "Subject": "测试邮件标题",
-        "Remark": "",
-        "ToMailArr": [{
-            "Name": "ghj1976",
-            "Address": "ghj1976@aaa.com"
-        }]
-    }]
+	"MailServer": {
+		"ServerAddress": "smtp.exmail.qq.com",
+		"ServerAddressPort": 465,
+		"NeedLogin": true,
+		"LoginUser": "guohongjun@bbb.com",
+		"LoginPassword": "*******",
+		"SendMailUserMail": {
+			"Name": "郭红俊",
+			"Address": "guohongjun@bbb.com"
+		}
+	},
+	"ConfigArr": [{
+		"FileName": "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/11.{{formatNow \"2006-01-02\"}}.log",
+		"FileNameUseTemplate": true,
+		"Subject": "异常监控报告，服务器：61.235",
+		"Remark": "",
+		"ToMailArr": [{
+			"Name": "ghj1976",
+			"Address": "ghj1976@aaa.com"
+		}, {
+			"Name": "郭红俊",
+			"Address": "guohongjun@bbb.com"
+		}]
+	}, {
+		"FileName": "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22_{{formatNow \"2006-01-02\"}}.log",
+		"FileNameUseTemplate": true,
+		"Subject": "测试邮件标题",
+		"Remark": "",
+		"ToMailArr": [{
+			"Name": "ghj1976",
+			"Address": "ghj1976@aaa.com"
+		}]
+	}]
 }

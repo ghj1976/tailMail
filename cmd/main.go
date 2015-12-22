@@ -85,6 +85,11 @@ func work(configDir string) {
 	for _, conf := range configArr.ConfigArr {
 
 		fn := conf.FileName
+		// 文件名使用模版机制。
+		if conf.FileNameUseTemplate {
+			// 模版替换
+			fn = tailMail.FormatFileName(fn)
+		}
 		tailInfo := tailMail.TailInfoEntity{
 			FileName:       fn,
 			MonitorTime:    time.Now(),
@@ -157,7 +162,7 @@ func initConfigFile() {
 
 	// 需要监控的文件
 	fileName1 := "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/11.log"
-	fileName2 := "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22.log"
+	fileName2 := "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22_{{formatNow \"2006-01-02\"}}.log"
 
 	// 写配置信息
 	configArr := tailMail.TailConfigCollectionEntity{
@@ -171,15 +176,17 @@ func initConfigFile() {
 		},
 		ConfigArr: []tailMail.TailConfigEntity{
 			{
-				FileName:  fileName1,
-				Subject:   "异常监控报告，服务器：61.235",
-				Remark:    "",
-				ToMailArr: []mail.Address{{Name: "ghj1976", Address: "ghj1976@aaa.com"}, {Name: "郭红俊", Address: "guohongjun@bbb.com"}}},
+				FileName:            fileName1,
+				FileNameUseTemplate: false,
+				Subject:             "异常监控报告，服务器：61.235",
+				Remark:              "",
+				ToMailArr:           []mail.Address{{Name: "ghj1976", Address: "ghj1976@aaa.com"}, {Name: "郭红俊", Address: "guohongjun@bbb.com"}}},
 			{
-				FileName:  fileName2,
-				Subject:   "测试邮件标题",
-				Remark:    "",
-				ToMailArr: []mail.Address{{Name: "ghj1976", Address: "ghj1976@aaa.com"}}}}}
+				FileName:            fileName2,
+				FileNameUseTemplate: true,
+				Subject:             "测试邮件标题",
+				Remark:              "",
+				ToMailArr:           []mail.Address{{Name: "ghj1976", Address: "ghj1976@aaa.com"}}}}}
 
 	err := tailMail.WriteConfig(&configArr)
 	if err != nil {

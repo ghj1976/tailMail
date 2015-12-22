@@ -16,6 +16,9 @@ tailMail
 
 + 测试时 progress.json 进度文件是可以随时删除的， 删除掉意味着下次当新文件来处理。
 
+由于配置文件是JSON格式的，json格式的校验请使用： http://jsonlint.com/
+
+
 + template.html 是发送邮件内容的模板文件，可以根据自己的情况进行定制修改。
 
 
@@ -34,10 +37,20 @@ tailMail -o=true
 -i 产生一个参考的配置文件。
 注意，这里的邮箱、密码都是瞎写的，需要改成自己需要的。
 
+# crontab 配置例子
+
+命令参数  
+/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd/tailMail -o=true -p=/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd
+
+注意，这里路径都需要完整路径，这样才能避免 crontab 当前目录不一样。
+
+*/5 * * * * root /Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd/tailMail -o=true -p=/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd
+
+http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/crontab.html
 
 # 变更历史 #
 
 + V0.1 在畅游时（2013年）完成第0.1版
-+ V0.2 在微智全景时，由于邮箱使用的是SSL方式才能发送，重构出第0.2版。
++ V0.2 在微智全景时(2015-12-21)，由于邮箱使用的是SSL方式才能发送，重构出第0.2版。
 
 
