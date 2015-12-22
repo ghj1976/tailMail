@@ -48,6 +48,16 @@ tailMail -o=true
 
 http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/crontab.html
 
+# 监控文件模版使用 #
+
+在配置文件中，如果配置的 FileNameUseTemplate 为 false， 则不启用文件名模版， 如果是 true ，则启用。 比如下面的部分配置就是启用了。
+"FileName": "/wangapp/tomcat-wxmember/logs/localhost.{{formatNow \"2006-01-02\"}}.log",
+"FileNameUseTemplate": true,
+
+这里的 formatNow 参数接受的值是 go 时间格式描述符。
+go 的格式化时间是用的一个特殊的时间做格式化的，参考如下：
+2006-01-02T15:04:05
+
 # 变更历史 #
 
 + V0.1 在畅游时（2013年）完成第0.1版
