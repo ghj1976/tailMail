@@ -43,7 +43,7 @@ func main() {
 	defer tailMail.LoggerFinish()
 
 	// 加载配置文件
-	tailMail.InitConfigFile(configDir)
+	tailMail.InitConfigFile(configDir, "toml")
 
 	// 命令行参数时重建配置文件
 	if *initConfig {
