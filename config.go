@@ -25,8 +25,8 @@ func InitConfigFile(configDir, config_type string) {
 		jsonProgressFileName = path.Join(configDir, "progress.json")
 	} else {
 		configType = "toml"
-		tomlConfigFileName = "config.toml"
-		tomlProgressFileName = "progress.toml"
+		tomlConfigFileName = path.Join(configDir, "config.toml")
+		tomlProgressFileName = path.Join(configDir, "progress.toml")
 	}
 }
 
