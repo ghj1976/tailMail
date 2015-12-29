@@ -24,10 +24,10 @@ tailMail
 
 json格式配置文件的校验请使用： http://jsonlint.com/
 
-toml 文件的注释符是 #
- # This is a full-line comment
+toml 文件的注释符是 #    
+ # This is a full-line comment    
 key = "value" # This is a comment at the end of a line
-请参考： https://github.com/toml-lang/toml
+请参考： https://github.com/toml-lang/toml    
 
 + template.html 是发送邮件内容的模板文件，可以根据自己的情况进行定制修改。
 
