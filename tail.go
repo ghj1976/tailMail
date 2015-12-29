@@ -37,24 +37,27 @@ func Tail(fileName string, buffer *bytes.Buffer, oldFileSize int64) (hasNewInfo 
 	if tailLen != 0 {
 		hasNewInfo = true
 
+		hasCut := false // 发送的内容是否被截断了。
 		// 避免去太长的文本
 		if tailLen > MAXTXTLEN || tailLen < 0 {
 			// 太长，截断之， 文件被删除内容，意味着需要重新读取，读取最后的 10000 字符
 			tailLen = MAXTXTLEN
+			hasCut = true
 		}
 
 		tailLen = tailLen + 100 // 从文件最后往前读的位移量
+		// 如果合并后的 tailLen 大于文件的长度，则仍然返回文件头。
 
 		tailPos := 0 - tailLen
 
-		err = fileReader(fileName, buffer, tailPos)
+		err = fileReader(fileName, buffer, tailPos, hasCut)
 	}
 	return
 }
 
 // 从文件中读取最后 tailLen 长度的内容。
 // 第一个不满的空行排除
-func fileReader(fileName string, buffer *bytes.Buffer, tailPos int64) (err error) {
+func fileReader(fileName string, buffer *bytes.Buffer, tailPos int64, hasCut bool) (err error) {
 	file, err := os.Open(fileName)
 	if err != nil {
 		return err
@@ -64,11 +67,20 @@ func fileReader(fileName string, buffer *bytes.Buffer, tailPos int64) (err error
 	log.Println("tailPos：", tailPos)
 	file.Seek(tailPos, os.SEEK_END)
 	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
 
+	var line int
+	line = 0
+	for scanner.Scan() {
+		line++
+		if hasCut && line <= 1 {
+			// 如果需要发送的内容被截断了，
+			// 这时候，我们假设 第一行不是完整的一行，跳过它。
+			continue
+		}
 		buffer.WriteString(scanner.Text())
 		buffer.WriteString("\r\n")
 
+		log.Println(line)
 		// 获取从文件中读取的内容
 		//fmt.Println(scanner.Text())
 	}
