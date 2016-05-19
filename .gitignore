@@ -1,0 +1,11 @@
+
+*.zip
+
+*.log
+
+cmd
+
+cmd/config.toml
+
+cmd/progress.toml
+
