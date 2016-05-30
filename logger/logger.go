@@ -1,4 +1,4 @@
-package tailMail
+package logger
 
 import (
 	"fmt"
@@ -14,13 +14,16 @@ import (
 var logfile *os.File
 
 // 执行结果是否输出到文件上，如果 true 表示输出到文件，否则输出到屏幕上。
-var OutPutLog = false
+var outPutLogFile = false
 
 // 如果要输出到文件，准备好文件
-func InitLogFile(dir string) {
-	if OutPutLog {
+// out2File 是否要输出到文件， dir 如果要输出到文件，这个文件放在那个目录下。
+func InitLogFile(out2File bool, dir string) {
+	outPutLogFile = out2File
+	if outPutLogFile {
 		logfilename := getLogFileName(dir)
 		logfile, err := os.OpenFile(logfilename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0700)
+		defer logfile.Close()
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(-1)
@@ -31,7 +34,7 @@ func InitLogFile(dir string) {
 
 // 应用退出时 关闭文件句柄
 func LoggerFinish() {
-	if OutPutLog {
+	if outPutLogFile {
 		logfile.Close()
 	}
 }

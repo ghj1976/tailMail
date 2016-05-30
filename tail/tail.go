@@ -1,4 +1,4 @@
-package tailMail
+package tail
 
 import (
 	"bufio"
@@ -11,7 +11,10 @@ const (
 	MAXTXTLEN = 10000 // 最长的文本长度，为了避免发太大的邮件，最多只会发这么多字符的内容。
 )
 
-func Tail(fileName string, buffer *bytes.Buffer, oldFileSize int64) (hasNewInfo bool, newFileSize int64, err error) {
+// 读取指定文件 fileName ，看是否有新的内容， 如果有则把数据读取到 buffer 中。
+// 有新的时 ， hasNewInfo 为 true
+// 是否有新的， 是基于 旧的 oldFileSize 来做比较的。 同时返回新的文件尺寸 newFileSize。
+func Tail(fileName string, oldFileSize int64, buffer *bytes.Buffer) (hasNewInfo bool, newFileSize int64, err error) {
 	hasNewInfo = false
 	newFileSize = oldFileSize
 
@@ -80,7 +83,7 @@ func fileReader(fileName string, buffer *bytes.Buffer, tailPos int64, hasCut boo
 		buffer.WriteString(scanner.Text())
 		buffer.WriteString("\r\n")
 
-		log.Println(line)
+		//log.Println(line)
 		// 获取从文件中读取的内容
 		//fmt.Println(scanner.Text())
 	}

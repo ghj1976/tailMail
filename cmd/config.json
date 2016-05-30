@@ -10,6 +10,10 @@
 			"Address": "guohongjun@bbb.com"
 		}
 	},
+	"Stat":{
+		"Enable":true,
+		"ServerName":"10.162.222.210"
+	},
 	"ConfigArr": [{
 		"FileName": "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/11.{{formatNow \"2006-01-02\"}}.log",
 		"FileNameUseTemplate": true,

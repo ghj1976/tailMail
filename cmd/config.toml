@@ -2,32 +2,80 @@
   ServerAddress = "smtp.exmail.qq.com"
   ServerAddressPort = 465
   NeedLogin = true
-  LoginUser = "guohongjun@bbb.com"
-  LoginPassword = "*******"
+  LoginUser = "aaa@eee.com"
+  LoginPassword = "*****"
   [MailServer.SendMailUserMail]
     Name = "郭红俊"
-    Address = "guohongjun@bbb.com"
+    Address = "ddd@eee.com"
+	
+[Stat]
+  Enable = true
+  ServerName = "10.12.22.210服务器"
+	
+[[ConfigArr]]
+  FileName = "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/localhost.{{formatNow \"2006-01-02\"}}.log"
+  FileNameUseTemplate = true
+  Subject = "wxmember 异常监控报告，服务器：10.12.22.210"
+  Remark = ""
+
+  [[ConfigArr.ToMailArr]]
+    Name = "郭红俊"
+    Address = "eee@wwe.com"
+
+
+
+[[ConfigArr]]
+  FileName = "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/localhost.{{formatNow \"2006-01-02\"}}.log"
+  FileNameUseTemplate = true
+  Subject = "wms 异常监控报告，服务器：10.162.222.210"
+  Remark = ""
+
+  [[ConfigArr.ToMailArr]]
+    Name = "郭红俊"
+    Address = "de@ff.com"
+
+ 
+
+[[ConfigArr]]
+  FileName = "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/localhost.{{formatNow \"2006-01-02\"}}.log"
+  FileNameUseTemplate = true
+  Subject = "sso 异常监控报告，服务器：10.162.222.210"
+  Remark = ""
+
+  [[ConfigArr.ToMailArr]]
+    Name = "郭红俊"
+    Address = "def@eee.com"
+
+  [[ConfigArr.ToMailArr]]
+    Name = "毕"
+    Address = "ddd@eee.com"
+
+  [[ConfigArr.ToMailArr]]
+    Name = "闫丽"
+    Address = "fgdg@ffdg.com"    
+
+  [[ConfigArr.ToMailArr]]
+    Name = "珠珠"
+    Address = "dfg@gdf.com"    
+
+
+[[ConfigArr]]
+  FileName = "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22.log"
+  FileNameUseTemplate = false
+  Subject = "wsp 异常监控报告，服务器：10.162.0.210"
+  Remark = ""
+
+  [[ConfigArr.ToMailArr]]
+    Name = "郭红俊"
+    Address = "dfg@fgdg.com"
+
 
 [[ConfigArr]]
   FileName = "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/11.log"
   FileNameUseTemplate = false
-  Subject = "异常监控报告，服务器：61.235"
+  Subject = "wmp 异常监控报告，服务器：10.162.222.210"
   Remark = ""
-
-  [[ConfigArr.ToMailArr]]
-    Name = "ghj1976"
-    Address = "ghj1976@aaa.com"
 
   [[ConfigArr.ToMailArr]]
     Name = "郭红俊"
-    Address = "guohongjun@bbb.com"
-
-[[ConfigArr]]
-  FileName = "/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/test/22_{{formatNow \"2006-01-02\"}}.log"
-  FileNameUseTemplate = true
-  Subject = "测试邮件标题"
-  Remark = ""
-
-  [[ConfigArr.ToMailArr]]
-    Name = "ghj1976"
-    Address = "ghj1976@aaa.com"
+    Address = "fsd@sdf.com"
