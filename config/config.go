@@ -16,9 +16,9 @@ import (
 )
 
 type ConfigInfo struct {
-	configFileType string                     // 配置文件类型
-	configFileName string                     // 配置文件名
-	Config         TailConfigCollectionEntity // 配置信息
+	configFileType string                      // 配置文件类型
+	configFileName string                      // 配置文件名
+	Config         *TailConfigCollectionEntity // 配置信息
 }
 
 // 构造一个 配置类
@@ -51,6 +51,9 @@ func (ci *ConfigInfo) ReadConfig() error {
 		return json.Unmarshal(txt, ci.Config)
 
 	} else {
+		if ci.Config == nil {
+			ci.Config = &TailConfigCollectionEntity{}
+		}
 		_, err := toml.DecodeFile(ci.configFileName, ci.Config)
 		return err
 	}

@@ -16,7 +16,7 @@ func InitConfigFile() {
 	ci := ConfigInfo{
 		configFileType: "toml",
 		configFileName: "config.toml",
-		Config: TailConfigCollectionEntity{
+		Config: &TailConfigCollectionEntity{
 			MailServer: SmtpMailServerEntity{
 				ServerAddress:     "smtp.exmail.qq.com",
 				ServerAddressPort: 465,

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/mail"
+	"os"
 	"time"
 
 	"github.com/ghj1976/tailMail/config"
@@ -13,7 +14,7 @@ import (
 
 // 发送昨日报告邮件
 func SendReportMail(configDir, serverName string, mailServer config.SmtpMailServerEntity, toMailArr []mail.Address) {
-	b, report := stat.ReadYesterdayStatValue(configDir, serverName)
+	b, report, yfn := stat.ReadYesterdayStatValue(configDir, serverName)
 	if !b {
 		log.Println("没有昨天的报表数据！")
 		return
@@ -30,4 +31,8 @@ func SendReportMail(configDir, serverName string, mailServer config.SmtpMailServ
 
 	email.SendSSLMail(mailServer, subject, body, "", toMailArr)
 
+	err = os.Remove(yfn)
+	if err != nil {
+		log.Println("删除文件：", yfn, "错误。", err)
+	}
 }

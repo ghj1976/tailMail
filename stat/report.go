@@ -13,20 +13,21 @@ import (
 )
 
 // 读昨天统计结果数据，以便发送统计邮件。
-func ReadYesterdayStatValue(dir, serverName string) (b bool, report *StatisticsReportDaily) {
+// yfn 需要操作的文件名。
+func ReadYesterdayStatValue(dir, serverName string) (b bool, report *StatisticsReportDaily, yfn string) {
 	yesterday := time.Now().AddDate(0, 0, -1)
-	yfn := path.Join(dir, fmt.Sprintf("stat_%s.toml", yesterday.Format("20060102")))
-
+	yfn = path.Join(dir, fmt.Sprintf("stat_%s.toml", yesterday.Format("20060102")))
+	log.Println("file:", yfn)
 	_, err := ioutil.ReadFile(yfn)
 	if err != nil {
 		// 文件不存在
-		return false, nil
+		return false, nil, ""
 	}
 	_, err = toml.DecodeFile(yfn, &report)
 	if err != nil {
-		return false, nil
+		return false, nil, yfn
 	}
-	return true, report
+	return true, report, yfn
 }
 
 // 把需要发送的信息变成html格式的文本。
