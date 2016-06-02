@@ -12,6 +12,7 @@ import (
 	"github.com/ghj1976/tailMail/logger"
 	"github.com/ghj1976/tailMail/progress"
 	"github.com/ghj1976/tailMail/report"
+	"github.com/ghj1976/tailMail/stat"
 )
 
 var (
@@ -83,6 +84,9 @@ func work(configDir string) {
 	}
 	log.Println(".... 读取进度文件完成 ....")
 
+	// 统计信息
+	si := stat.NewStatInfo(configDir)
+
 	// 准备要 tailMail 处理的文件集合
 	tailInfoMap := ci.PrepareWork(pi)
 
@@ -104,7 +108,7 @@ func work(configDir string) {
 			pi.UpdateFile(info.FileName, info.LastFileSize)
 
 			// 更新统计信息
-
+			info.Stat(ci.Config.Stat.ServerName, si)
 		}
 	}
 }
