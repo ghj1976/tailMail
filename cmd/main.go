@@ -40,6 +40,8 @@ func main() {
 
 	// 准备日志输出。
 	logger.InitLogFile(*outPutLog, configDir)
+	log.Println("")
+	log.Println("==begin==")
 	defer logger.LoggerFinish()
 
 	// 如果需要重建配置文件

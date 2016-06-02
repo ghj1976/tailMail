@@ -95,6 +95,9 @@ tailMail 本身的日志输出是否要输出到文件，默认 false， 如果�
 
 */5 * * * * root /Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd/tailMail -o=true -p=/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd
 
+* 3 * * * root /Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd/tailMail -r=true -p=/Users/ghj1976/project/mygocode/src/github.com/ghj1976/tailMail/cmd
+
+
 http://linuxtools-rst.readthedocs.org/zh_CN/latest/tool/crontab.html
 
 ## 监控文件模版使用 ##

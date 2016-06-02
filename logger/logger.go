@@ -23,7 +23,6 @@ func InitLogFile(out2File bool, dir string) {
 	if outPutLogFile {
 		logfilename := getLogFileName(dir)
 		logfile, err := os.OpenFile(logfilename, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0700)
-		defer logfile.Close()
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(-1)
@@ -43,7 +42,7 @@ func LoggerFinish() {
 func getLogFileName(dir string) (filename string) {
 	file, _ := exec.LookPath(os.Args[0])
 	fileName := filepath.Base(file)
-	logfileName := fmt.Sprintf("%s.%s.log", fileName, time.Now().Format("20060102"))
+	logfileName := fmt.Sprintf("%s.%s.log", fileName, time.Now().Format("2006-01-02"))
 
 	dirPath := path.Join(dir, "log")
 
@@ -53,7 +52,7 @@ func getLogFileName(dir string) (filename string) {
 	}
 
 	logfileName = path.Join(dirPath, logfileName)
-	fmt.Println("输出信息情况日志文件：", logfileName)
+	fmt.Println("log文件：", logfileName)
 
 	return logfileName
 }
