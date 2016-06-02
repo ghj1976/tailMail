@@ -26,8 +26,8 @@ func SendReportMail(configDir, serverName string, mailServer config.SmtpMailServ
 		return
 	}
 	yesterday := time.Now().AddDate(0, 0, -1)
-	subject := fmt.Sprintf("监控日报-%s-%d.%d.%d", serverName,
-		yesterday.Year(), yesterday.Month(), yesterday.Day())
+	subject := fmt.Sprintf("监控日报-%s-%s", serverName,
+		yesterday.Format("20060102"))
 
 	email.SendSSLMail(mailServer, subject, body, "", toMailArr)
 
