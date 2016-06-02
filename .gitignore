@@ -2,5 +2,3 @@
 *.log
 cmd
 cmd/progress.toml
-
-test/11.log
