@@ -97,7 +97,7 @@ func (ci *ConfigInfo) PrepareWork(pi *progress.ProcessInfo) map[string]TailInfoE
 			MailBodyHtml:   new(bytes.Buffer), // 要发送的邮件内容正文body
 			HasNewInfo:     true,              //是不是有新的需要发送的信息
 			LastFileSize:   pi.GetLastFileSize(fn),
-			Config:         &conf,
+			Config:         conf,
 		}
 		tailInfoMap[fn] = tailInfo
 	}

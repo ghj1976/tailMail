@@ -23,7 +23,7 @@ type TailInfoEntity struct {
 	LastFileSize int64 // 已经发送到那个位置了，上次文件的大小
 	CurPos       int64 // 本次截取的文件位置， 如果本次内容太多， 不会截取全部。
 
-	Config *TailConfigEntity // 当前文件处理相关的配置信息
+	Config TailConfigEntity // 当前文件处理相关的配置信息
 }
 
 // 把需要发送的信息变成html格式的文本。
